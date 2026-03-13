@@ -16,6 +16,8 @@
   </a>
 </p>
 
+A thesis-linked research repository for micromagnetic simulations, SQUID magnetometry analysis, and XRD visualisation of FePt thin films on spherical SiO₂ substrates.
+
 ---
 
 ## Overview
@@ -27,6 +29,19 @@ This repository contains three independent Python-based modules developed for th
 - **Part 3:** SQUID magnetometry analysis and SQUID–simulation comparison
 
 Each module is self-contained but designed to function within a unified research workflow.
+
+<!-- Preview images — uncomment once figures/ folder is populated
+## Preview
+
+### SQUID analysis
+![SQUID analysis example](figures/squid_example.png)
+
+### SQUID–simulation comparison
+![SQUID–simulation overlay](figures/squid_oommf_overlay.png)
+
+### XRD plotting
+![XRD plot example](figures/xrd_example.png)
+-->
 
 ---
 
@@ -65,6 +80,19 @@ FunMaP/
 
 ---
 
+## Notebook Guide
+
+| Goal | Notebook | Main output |
+|---|---|---|
+| Run mixed-phase FePt cap simulations | `simulations/FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb` | Hysteresis data for multiple diameters and phase fractions |
+| Run pure L1₀ diameter-sweep simulations | `simulations/FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb` | Hysteresis data for pure L1₀ caps |
+| Analyse SQUID batches | `analysis/SQUID_analysis_Caps.ipynb` | Averaged loops, statistics, corrected plots, CSV export |
+| Compare SQUID and simulation results | `analysis/SQUID-OOMMF-analysis.ipynb` | Two-panel SQUID–simulation overlay |
+| Analyse converted OOMMF simulation files | `analysis/OOMMF-analysis.ipynb` | Overlay plots, SFD analysis, per-file reports |
+| Plot XRD files | `analysis/XRDplot.ipynb` | Publication-ready XRD PNG/SVG plots |
+
+---
+
 ## Pipeline
 
 ```
@@ -100,6 +128,20 @@ XRDplot.ipynb
 
 ---
 
+## Sample Data
+
+This repository includes synthetic example files in `sample_data/` for testing the plotting and analysis workflow without requiring access to unpublished experimental data.
+
+| Folder | Contents |
+|---|---|
+| `sample_data/squid/` | Demo SQUID-style `.dat` files (Quantum Design format) |
+| `sample_data/simulations/` | Synthetic converted simulation CSVs |
+| `sample_data/xrd/` | Example `.xy` diffractogram |
+
+These files are intended only for workflow demonstration and code testing — they do not represent the original experimental datasets used in the thesis.
+
+---
+
 ## Installation
 
 All scripts run in a single conda environment based on [ubermag](https://ubermag.github.io/).
@@ -126,6 +168,26 @@ Verify OOMMF is available:
 ```bash
 oommf.tcl +version
 ```
+
+---
+
+## Quick Start
+
+After installation, open Jupyter Notebook inside the `ubermag_env` environment and choose the notebook matching your task:
+
+- **Run micromagnetic hysteresis simulations**
+  - `simulations/FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb`
+  - `simulations/FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb`
+- **Analyse SQUID measurements** → `analysis/SQUID_analysis_Caps.ipynb`
+- **Compare SQUID data with simulations** → `analysis/SQUID-OOMMF-analysis.ipynb`
+- **Plot XRD diffractograms** → `analysis/XRDplot.ipynb`
+- **Analyse converted simulation files** → `analysis/OOMMF-analysis.ipynb`
+
+Recommended order for first-time users:
+1. Create and activate the conda environment
+2. Verify OOMMF is available (`oommf.tcl +version`)
+3. Open Jupyter Notebook
+4. Start from the notebook matching your workflow goal
 
 ---
 
@@ -254,6 +316,22 @@ If you use this repository, please cite:
   note   = {In preparation},
 }
 ```
+
+For thesis citation or exact reproducibility, users are encouraged to reference a tagged repository release when available.
+
+---
+
+## Known Limitations
+
+This repository was developed as a research workflow accompanying a thesis and associated manuscript. The notebooks are intended for transparent scientific analysis rather than as a general-purpose software package.
+
+- Micromagnetic models treat the SiO₂ substrate as magnetically inactive (Ms = 0)
+- Simulations represent isolated hemispherical caps — no inter-particle dipolar coupling
+- Static simulations use a zero-temperature approximation unless thermal drivers are explicitly selected
+- Material properties are homogeneous within each defined phase region
+- Sample files included in the repository are synthetic demonstration data only
+
+These assumptions should be considered when comparing simulation outputs with ensemble-averaged experimental measurements.
 
 ---
 
