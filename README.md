@@ -16,7 +16,7 @@
   </a>
 </p>
 
-A thesis-linked research repository for micromagnetic simulations, SQUID magnetometry analysis, and XRD visualisation of FePt thin films on spherical SiO₂ substrates.
+A thesis-linked (soon to be pre-printed) research repository for micromagnetic simulations, SQUID magnetometry analysis, and XRD visualisation of FePt thin films on spherical SiO₂ substrates.
 
 ---
 
