@@ -1,4 +1,4 @@
-<h1 align="center">FunMaP: Functional Magnetic Particles analysis pipeline for FePt thin films on spherical SiO₂ substrates</h1>
+<h1 align="center">FunMaP: <b>Fun</b>ctional <b>Ma</b>gnetic <b>P</b>articles analysis pipeline for FePt thin films on spherical SiO₂ substrates</h1>
 
 <p align="center">
   <a href="https://is.mpg.de/person/lsmith"><strong>Natalia Gonzalez-Vazquez*</strong></a> ·
@@ -43,6 +43,7 @@ FunMaP/
 │
 ├── simulations/                           # Micromagnetic simulation scripts
 │   ├── FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb
+│   └── FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb
 │
 ├── sample_data/                           # Synthetic demo data (not real measurements)
 │   ├── squid/
@@ -143,13 +144,10 @@ The simulations explicitly account for:
 ### Simulation Scripts
 
 **`FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb`**  
-Hysteresis loops for multiple sphere diameters. A temperature prompt at runtime selects:
-- `T = 0` → static energy minimisation (MinDriver, 0 K)
-- `T > 0` → dynamic LLG integration with thermal field (TimeDriver, T K)
+Hysteresis loops for diameters 1, 3, 5, 8, 10, 20 µm (60 nm cap). Mixed L1₀/A1 phase with radial anisotropy. Runtime prompts select temperature (MinDriver at 0 K / TimeDriver at T > 0 K). Supports checkpoint-based resume.
 
-Mixed L1₀/A1 phase with radial anisotropy. Supports checkpoint-based resume.
-
-Cap thickness sweep (10–80 nm) on a 1 µm sphere. Pure L1₀ phase, both radial and uniaxial-vertical anisotropy modes, volume-corrected output.
+**`FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb`**  
+Same diameter sweep but pure L1₀ phase — no A1 soft fraction. Runtime prompts select temperature and anisotropy mode (Radial or Uniaxial_Vertical). Supports checkpoint-based resume.
 
 ### Key Parameters
 
@@ -161,7 +159,7 @@ Cap thickness sweep (10–80 nm) on a 1 µm sphere. Pure L1₀ phase, both radia
 | Ku (A1) | 1 × 10⁴ J/m³ |
 | B_max | ±18 T |
 | Cap thickness (default) | 60 nm |
-| Sphere diameters | 1, 3, 5, 8, 10 µm |
+| Sphere diameters | 1, 3, 5, 8, 10, 20 µm |
 
 ### Modelling Assumptions
 - Single isolated hemispherical FePt cap; no inter-particle dipolar coupling
