@@ -36,14 +36,13 @@ Each module is self-contained but designed to function within a unified research
 FunMaP/
 │
 ├── analysis/                              # Experimental data analysis
-│   ├── SQUID_full-analysis_Caps.ipynb       # Batch averaging & background correction
-│   ├── SQUID-Sims.ipynb                     # SQUID vs simulation overlay
+│   ├── SQUID_analysis_Caps.ipynb       # Batch averaging & background correction
+│   ├── SQUID-OOMMF-analysis.ipynb                     # SQUID vs simulation overlay
 │   ├── OOMMF-analysis.ipynb                 # Simulation hysteresis + SFD plots
 │   └── XRDplot.ipynb                        # XRD masked/naked plotting
 │
 ├── simulations/                           # Micromagnetic simulation scripts
 │   ├── FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb
-│   └── FePt_L10_MultipleCaps_HystLoop_both_volumecorrection_thickness.ipynb
 │
 ├── sample_data/                           # Synthetic demo data (not real measurements)
 │   ├── squid/
@@ -71,14 +70,14 @@ FunMaP/
 SQUID measurements (.dat)
         │
         ▼
-SQUID_full-analysis_Caps.ipynb
+SQUID_analysis_Caps.ipynb
   → background correction (diamagnetic slope subtraction)
   → per-batch averaging + statistics (Hc, Mr/Ms, W_hyst)
   → Averaged_Data_{diam}um_{ts}.csv
         │
         └──────────────────────────────┐
                                        ▼
-Simulations (ubermag/OOMMF)     SQUID-Sims.ipynb
+Simulations (ubermag/OOMMF)     SQUID-OOMMF-analysis.ipynb
         │                         → overlay: SQUID mean vs sims
         ▼                         → two-panel: raw A·m² / M/Msat
 [Simulation scripts]
@@ -150,7 +149,6 @@ Hysteresis loops for multiple sphere diameters. A temperature prompt at runtime 
 
 Mixed L1₀/A1 phase with radial anisotropy. Supports checkpoint-based resume.
 
-**`FePt_L10_MultipleCaps_HystLoop_both_volumecorrection_thickness.ipynb`**  
 Cap thickness sweep (10–80 nm) on a 1 µm sphere. Pure L1₀ phase, both radial and uniaxial-vertical anisotropy modes, volume-corrected output.
 
 ### Key Parameters
@@ -200,7 +198,7 @@ Automated visualisation of Cu Kα XRD diffractograms of FePt films on SiO₂ sph
 
 This module bridges experimental SQUID magnetometry data and micromagnetic simulation results, enabling direct comparison between ensemble-averaged experimental hysteresis loops and single-cap simulated loops.
 
-### Script: `SQUID_full-analysis_Caps.ipynb`
+### Script: `SQUID_analysis_Caps.ipynb`
 
 Processes raw SQUID `.dat` files (Quantum Design format) for a single particle batch.
 
@@ -219,11 +217,11 @@ Processes raw SQUID `.dat` files (Quantum Design format) for a single particle b
 
 ---
 
-### Script: `SQUID-Sims.ipynb`
+### Script: `SQUID-OOMMF-analysis.ipynb`
 
 Two-panel overlay of averaged SQUID data and simulation results.
 
-- Step 1: select averaged SQUID CSV (output of `SQUID_full-analysis_Caps`)
+- Step 1: select averaged SQUID CSV (output of `SQUID_analysis_Caps`)
 - Step 2: select one or more CONVERTED simulation CSVs
 - **Outputs:** PNG + SVG → `Comparison_Results_{ts}/`
 
