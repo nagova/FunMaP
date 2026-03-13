@@ -1,4 +1,4 @@
-<h1 align="center">FunMaP: Customizable simulations for Janus particles' magnetic properties with associated visualizations</h1>
+<h1 align="center">FunMaP: Functional Magnetic Particles analysis pipeline for FePt thin films on spherical SiO₂ substrates</h1>
 
 <p align="center">
   <a href="https://is.mpg.de/person/lsmith"><strong>Natalia Gonzalez-Vazquez*</strong></a> ·
