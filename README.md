@@ -1,11 +1,9 @@
 <h1 align="center">FunMaP: <b>Fun</b>ctional <b>Ma</b>gnetic <b>P</b>articles analysis pipeline for FePt thin films on spherical SiO₂ substrates</h1>
 
 <p align="center">
-  <a href="https://is.mpg.de/person/lsmith"><strong>Natalia Gonzalez-Vazquez*</strong></a> ·
-  <a href="https://hi.is.mpg.de/person/aschulz"><strong>Andrew K. Schulz*</strong></a>
+  <a href="https://is.mpg.de/person/lsmith"><strong>Natalia Gonzalez-Vazquez</strong></a> ·
+  <a href="https://hi.is.mpg.de/person/aschulz"><strong>Andrew K. Schulz</strong></a>
 </p>
-
-<p align="center"><strong>*</strong> denotes equal contributions to this repository.</p>
 
 <p align="center">
   <a href="https://arxiv.org/abs/2504.07143">
