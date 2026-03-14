@@ -140,7 +140,7 @@ These files are intended only for workflow demonstration and code testing — th
 
 ---
 
-## Installation
+## Dependencies
 
 All scripts run in a single conda environment based on [ubermag](https://ubermag.github.io/).
 
@@ -191,6 +191,9 @@ Recommended order for first-time users:
 
 ## Part 1 — Micromagnetic Simulations
 
+<details>
+<summary><strong>Click to expand</strong></summary>
+
 ### Scientific Scope
 
 This module models the intrinsic magnetic switching behaviour of hemispherical FePt shells deposited on diamagnetic SiO₂ spheres. The SiO₂ substrate is treated as magnetically inactive (Ms = 0) and is excluded from the computational mesh.
@@ -211,15 +214,17 @@ Same diameter sweep but pure L1₀ phase — no A1 soft fraction. Runtime prompt
 
 ### Key Parameters
 
-| Parameter | Value |
-|-----------|-------|
-| Ms | 1 × 10⁶ A/m |
-| A (exchange) | 1 × 10⁻¹¹ J/m |
-| Ku (L1₀) | 6.6 × 10⁶ J/m³ |
-| Ku (A1) | 1 × 10⁴ J/m³ |
-| B_max | ±18 T |
-| Cap thickness (default) | 60 nm |
-| Sphere diameters | 1, 3, 5, 8, 10, 20 µm |
+> **Note on notation:** Throughout this repository, `L10` in file names and code refers to the **L1₀** (L1-zero) ordered intermetallic phase of FePt.
+
+| Parameter | Value | Units |
+|-----------|-------|-------|
+| Ms (saturation magnetisation) | 1 × 10⁶ | A/m |
+| A (exchange stiffness) | 1 × 10⁻¹¹ | J/m |
+| Ku (L1₀ hard phase) | 6.6 × 10⁶ | J/m³ |
+| Ku (A1 soft phase) | 1 × 10⁴ | J/m³ |
+| B_max (field sweep range) | ±18 | T |
+| Cap thickness | 60 | nm |
+| Sphere diameters | 1, 3, 5, 8, 10, 20 | µm |
 
 ### Modelling Assumptions
 - Single isolated hemispherical FePt cap; no inter-particle dipolar coupling
@@ -227,9 +232,14 @@ Same diameter sweep but pure L1₀ phase — no A1 soft fraction. Runtime prompt
 - Open boundary conditions; self-consistent magnetostatic field within the cap
 - Homogeneous material parameters within each defined phase
 
+</details>
+
 ---
 
 ## Part 2 — XRD Data Visualisation
+
+<details>
+<summary><strong>Click to expand</strong></summary>
 
 ### Scientific Purpose
 
@@ -248,9 +258,14 @@ Automated visualisation of Cu Kα XRD diffractograms of FePt films on SiO₂ sph
 - Angular masks configurable via `MASKS` list at the top of the script
 - **Outputs:** PNG (600 dpi) + SVG per file → `xrd_outputs/`
 
+</details>
+
 ---
 
 ## Part 3 — SQUID Magnetometry Analysis
+
+<details>
+<summary><strong>Click to expand</strong></summary>
 
 ### Scientific Purpose
 
@@ -298,6 +313,8 @@ Multi-file simulation overlay and per-file SFD analysis.
 - **Outputs per session:**
   - `Overlay_{ts}.png/.svg` — all files on one two-panel figure
   - Per-file `{name}_{ts}.png/.svg` + `_report.txt` (Hc, Mr/Ms, SFD FWHM)
+
+</details>
 
 ---
 
