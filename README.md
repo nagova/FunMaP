@@ -14,6 +14,8 @@
   </a>
 </p>
 
+<img src="assets/GitHubHeader.png" alt="Overview of the FunMaP workflow displayed as a metro map. Two parallel routes converge for cross-validation. The experimental line (orange) starts from SEM images of FePt thin films on SiO₂ spheres, proceeds through XRD phase characterisation and SQUID magnetometry measurements, producing averaged hysteresis loops and labelled diffractograms. The simulation line (purple) runs micromagnetic simulations of hemispherical FePt caps using Ubermag/OOMMF, with selectable radial or uniaxial anisotropy, producing hysteresis loops and switching field distributions. Both lines converge at the SQUID + simulations overlay station, enabling direct comparison between ensemble-averaged experimental and single-cap simulated hysteresis loops. Publication-ready outputs include magnetic property reports (Hc, Mr/Ms, W_hyst, Mz/Ms, SFD) and figures in .svg, .png, .csv and .txt formats." width="100%">
+
 A thesis-linked (soon to be pre-printed) research repository for micromagnetic simulations, SQUID magnetometry analysis, and XRD visualisation of FePt thin films on spherical SiO₂ substrates.
 
 ---
