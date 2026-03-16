@@ -30,6 +30,8 @@ This repository contains three independent Python-based modules developed for th
 
 Each module is self-contained but designed to function within a unified research workflow.
 
+💡 Tip: You can switch between [Light and Dark mode](https://github.com/settings/appearance) in your GitHub profile settings for better readability. This repo is designed to be viewed in Dark mode.
+
 <!-- Preview images — uncomment once figures/ folder is populated
 ## Preview
 
