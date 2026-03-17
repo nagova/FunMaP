@@ -363,9 +363,6 @@ See the `LICENSE` file for details.
 
 ## Acknowledgements
 
-We acknowledge the International Max Planck Research School for Intelligent Systems (IMPRS-IS) for support.  
-We thank J. Burns and J.-C. Passy for assistance in repository preparation.  
-We thank N. Rokhmanova for the ARIADNE repository inspiration.  
 We thank G. Richter for scientific feedback and discussion.
 
 ---
