@@ -52,17 +52,17 @@ Each module is self-contained but designed to function within a unified research
 ```
 FunMaP/
 │
-├── analysis/                              # Experimental data analysis
-│   ├── SQUID_analysis_Caps.ipynb       # Batch averaging & background correction
-│   ├── SQUID-OOMMF-analysis.ipynb                     # SQUID vs simulation overlay
-│   ├── OOMMF-analysis.ipynb                 # Simulation hysteresis + SFD plots
-│   └── XRDplot.ipynb                        # XRD masked/naked plotting
+├── analysis/                                                  # Experimental data analysis
+│   ├── SQUID_analysis_Caps.ipynb                              # Batch averaging & background correction
+│   ├── SQUID-OOMMF-analysis.ipynb                             # SQUID vs simulation overlay
+│   ├── OOMMF-analysis.ipynb                                   # Simulation hysteresis + SFD plots
+│   └── XRDplot.ipynb                                          # XRD masked/naked plotting
 │
-├── simulations/                           # Micromagnetic simulation scripts
+├── simulations/                                               # Micromagnetic simulation scripts
 │   ├── FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb
 │   └── FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb
 │
-├── sample_data/                           # Synthetic demo data (not real measurements)
+├── sample_data/                                               # Synthetic demo data (not real measurements)
 │   ├── squid/
 │   │   ├── sample_3um_measurement_A.dat
 │   │   └── sample_3um_measurement_B.dat
@@ -75,7 +75,7 @@ FunMaP/
 │   └── xrd/
 │       └── sample_FePt_SiO2_on_Si.xy
 │
-├── environment.yml                        # Conda environment (ubermag_env)
+├── environment.yml                                            # Conda environment (ubermag_env)
 ├── .gitignore
 └── README.md
 ```
@@ -88,10 +88,10 @@ FunMaP/
 |---|---|---|
 | Run mixed-phase FePt cap simulations | `simulations/FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb` | Hysteresis data for multiple diameters and phase fractions |
 | Run pure L1₀ diameter-sweep simulations | `simulations/FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb` | Hysteresis data for pure L1₀ caps |
-| Analyse SQUID batches | `analysis/SQUID_analysis_Caps.ipynb` | Averaged loops, statistics, corrected plots, CSV export |
+| Analyse SQUID batches | `analysis/SQUID_analysis_Caps.ipynb` | Averaged loops, statistics, corrected plots, .csv export |
 | Compare SQUID and simulation results | `analysis/SQUID-OOMMF-analysis.ipynb` | Two-panel SQUID–simulation overlay |
-| Analyse converted OOMMF simulation files | `analysis/OOMMF-analysis.ipynb` | Overlay plots, SFD analysis, per-file reports |
-| Plot XRD files | `analysis/XRDplot.ipynb` | Publication-ready XRD PNG/SVG plots |
+| Analyse converted OOMMF simulation files | `analysis/OOMMF-analysis.ipynb` | Overlay plots, swifting field distribution (SFD) analysis, per-file reports |
+| Plot XRD files | `analysis/XRDplot.ipynb` | Publication-ready XRD .PNG/.SVG plots |
 
 ---
 
