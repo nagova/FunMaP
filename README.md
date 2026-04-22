@@ -211,10 +211,10 @@ The simulations explicitly account for:
 ### Simulation Scripts
 
 **`FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb`**  
-Hysteresis loops for diameters 1, 3, 5, 8, 10, 20 µm (60 nm cap). Mixed L1₀/A1 phase with radial anisotropy. Runtime prompts select temperature (MinDriver at 0 K / TimeDriver at T > 0 K). Supports checkpoint-based resume.
+Hysteresis loops for diameters 1, 3, 5, 8, 10, 20 µm (60 nm cap thickness). Mixed L1₀/A1 phase with radial anisotropy. Runtime prompts select temperature (MinDriver at 0 K / TimeDriver at T > 0 K). Supports checkpoint-based resume.
 
 **`FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb`**  
-Same diameter sweep but pure L1₀ phase — no A1 soft fraction. Runtime prompts select temperature and anisotropy mode (Radial or Uniaxial_Vertical). Supports checkpoint-based resume.
+Same diameter sweep (1, 3, 5, 8, 10, 20 µm) but pure L1₀ phase — no A1 soft fraction. Runtime prompts select temperature and anisotropy mode (Radial or Uniaxial_Vertical). Supports checkpoint-based resume.
 
 ### Key Parameters
 
