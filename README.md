@@ -226,7 +226,7 @@ Same diameter sweep (1, 3, 5, 8, 10, 20 µm) but pure L1₀ phase — no A1 soft
 | A (exchange stiffness) | 1 × 10⁻¹¹ | J/m |
 | Ku (L1₀ hard phase) | 6.6 × 10⁶ | J/m³ |
 | Ku (A1 soft phase) | 1 × 10⁴ | J/m³ |
-| B_max (field sweep range) | ±18 | T |
+| B<sub>max</sub> (field sweep range) | ±18 | T |
 | Cap thickness | 60 | nm |
 | Sphere diameters | 1, 3, 5, 8, 10, 20 | µm |
 
@@ -283,7 +283,7 @@ Processes raw SQUID `.dat` files (Quantum Design format) for a single particle b
 - Prompts: sphere diameter [in µm], cap thickness [in nm], substrate area [in mm²]
 - Optional diamagnetic background subtraction (slope fitted to ±95% saturation tails independently, then averaged)
 - Averaging by branch (descending and ascending separately) → proper closed mean loop
-- Extracts: H<sub>c</sub> [in T], $M_r/M_s$ [unitless], hysteresis loss W<sub>hyst</sub> [in J/kg]
+- Extracts: H<sub>c</sub> [in T], M<sub>r</sub>/M_<sub>s</sub> [unitless], hysteresis loss W<sub>hyst</sub> [in J/kg]
 - **Outputs:** PNG + SVG two-panel plot, `.txt` statistical report, averaged CSV
 
 **Plot layout:**
@@ -316,7 +316,7 @@ Multi-file simulation overlay and per-file SFD analysis.
 - Terminal prompt: sphere diameter + cap thickness per file
 - **Outputs per session:**
   - `Overlay_{ts}.png/.svg` — all files on one two-panel figure
-  - Per-file `{name}_{ts}.png/.svg` + `_report.txt` (Hc, Mr/Ms, SFD FWHM)
+  - Per-file `{name}_{ts}.png/.svg` + `_report.txt` (H_c, M_r/M_s, SFD FWHM)
 
 </details>
 
