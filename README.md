@@ -280,10 +280,10 @@ This module bridges experimental SQUID magnetometry data and micromagnetic simul
 Processes raw SQUID `.dat` files (Quantum Design format) for a single particle batch.
 
 - GUI file selector → ≥2 `.dat` files per batch
-- Prompts: sphere diameter [µm], cap thickness [nm], substrate area [mm²]
+- Prompts: sphere diameter [in µm], cap thickness [in nm], substrate area [in mm²]
 - Optional diamagnetic background subtraction (slope fitted to ±95% saturation tails independently, then averaged)
 - Averaging by branch (descending and ascending separately) → proper closed mean loop
-- Extracts: Hc [T], Mr/Ms, hysteresis loss W_hyst [J/kg]
+- Extracts: Hc [in T], Mr/Ms [unitless], hysteresis loss W_hyst [in J/kg]
 - **Outputs:** PNG + SVG two-panel plot, `.txt` statistical report, averaged CSV
 
 **Plot layout:**
