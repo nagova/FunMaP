@@ -361,6 +361,18 @@ See the `LICENSE` file for details.
 
 ---
 
+## Copyright
+
+Copyright © 2026 Max-Planck-Gesellschaft zur Förderung der Wissenschaften e.V.  
+Copyright © 2026 University of Stuttgart
+
+**Authors:** Natalia Gonzalez-Vazquez, Andrew K. Schulz
+
+FunMaP is free software distributed under the
+[GNU General Public License v3.0](LICENSE) or later.
+
+---
+
 ## Acknowledgements
 
 We thank G. Richter for scientific feedback and discussion.
