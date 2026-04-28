@@ -381,7 +381,7 @@ We thank G. Richter for scientific feedback and discussion.
 
 ## Contact
 
-Maintained by:
+Authored and maintained by:
 - **Natalia Gonzalez-Vazquez** — https://github.com/nagova
 - **Andrew K. Schulz** — https://github.com/Aschulz94
 
