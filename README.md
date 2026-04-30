@@ -14,7 +14,7 @@
   </a>
 </p>
 
-<p align="center">
+<p align="center" style="line-height:0;">
   <img src="GitHubHeader_light.png#gh-light-mode-only"
        alt="Integrated FunMaP workflow shown as a metro-style diagram with two parallel pipelines that converge for cross-validation. The experimental pipeline (orange) progresses from SEM imaging of FePt thin films on SiO₂ spheres through XRD and SQUID measurements, producing averaged hysteresis loops and diffraction data. The simulation pipeline (purple) performs micromagnetic simulations of hemispherical FePt caps with radial or uniaxial anisotropy, generating hysteresis loops and switching field distributions. Both pipelines merge for direct comparison between experimental and simulated magnetic behavior, yielding publication-ready figures and magnetic property metrics."
        style="display:block; margin:0 auto; width:100%;">
@@ -22,6 +22,9 @@
   <img src="GitHubHeader_dark.png#gh-dark-mode-only"
        alt="Integrated FunMaP workflow shown as a metro-style diagram with two parallel pipelines that converge for cross-validation. The experimental pipeline (orange) progresses from SEM imaging of FePt thin films on SiO₂ spheres through XRD and SQUID measurements, producing averaged hysteresis loops and diffraction data. The simulation pipeline (purple) performs micromagnetic simulations of hemispherical FePt caps with radial or uniaxial anisotropy, generating hysteresis loops and switching field distributions. Both pipelines merge for direct comparison between experimental and simulated magnetic behavior, yielding publication-ready figures and magnetic property metrics."
        style="display:block; margin:0 auto; width:100%;">
+       
+*FunMaP workflow integrating experimental and micromagnetic simulation pipelines for FePt Janus particles.*
+
 </p>
 
 An open-source research repository for micromagnetic simulations, SQUID magnetometry analysis, and XRD visualisation of FePt thin films on spherical SiO₂ substrates. This repository is tied to the soon to be pre-print and submitted publication entitled, "Ordering, not curvature provides means for magnetic tunability for FePt based Janus particles" by Natalia Gonzalez-Vasquez, Eylül Suadiye, Eberhard Goering, Ruben O. Miranda-Rosales, Hilda David, Frank Thiele, Julia Unangst, Andrew K. Schulz, and Gunther Richter. 
