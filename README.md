@@ -26,7 +26,6 @@
        
 *FunMaP workflow integrating experimental and micromagnetic simulation pipelines for FePt Janus particles.*
 
-</p>
 
 An open-source research repository for micromagnetic simulations, SQUID magnetometry analysis, and XRD visualisation of FePt thin films on spherical SiO₂ substrates. This repository is tied to the soon to be pre-print and submitted publication entitled, "Ordering, not curvature provides means for magnetic tunability for FePt based Janus particles" by Natalia Gonzalez-Vasquez, Eylül Suadiye, Eberhard Goering, Ruben O. Miranda-Rosales, Hilda David, Frank Thiele, Julia Unangst, Andrew K. Schulz, and Gunther Richter. 
 
