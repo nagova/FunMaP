@@ -6,10 +6,12 @@
 </p>
 
 <p align="center">
-
-[![arXiv](https://img.shields.io/badge/arXiv-Preprint-B31B1B.svg)](https://arxiv.org/abs/2504.07143)
-[![Data Repository](https://img.shields.io/badge/Data%20Repository-Edmond-005BBB.svg)](https://doi.org/10.17617/3.ROQPWZ)
-
+<a href="https://arxiv.org/abs/2504.07143">
+  <img src="https://img.shields.io/badge/arXiv-Preprint-B31B1B.svg">
+</a>
+<a href="https://doi.org/10.17617/3.ROQPWZ">
+  <img src="https://img.shields.io/badge/Data%20Repository-Edmond-005BBB.svg">
+</a>
 </p>
 
 <div align="center">
