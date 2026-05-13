@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-<a href="https://arxiv.org/abs/2504.07143">
+<a href="https://arxiv.org/abs/2605.12283">
   <img src="https://img.shields.io/badge/arXiv-Preprint-B31B1B.svg">
 </a>
 <a href="https://doi.org/10.17617/3.ROQPWZ">
