@@ -23,7 +23,7 @@
        alt="Integrated FunMaP workflow shown as a metro-style diagram with two parallel pipelines that converge for cross-validation. The experimental pipeline (orange) progresses from SEM imaging of FePt thin films on SiO₂ spheres through XRD and SQUID measurements, producing averaged hysteresis loops and diffraction data. The simulation pipeline (purple) performs micromagnetic simulations of hemispherical FePt caps with radial or uniaxial anisotropy, generating hysteresis loops and switching field distributions. Both pipelines merge for direct comparison between experimental and simulated magnetic behavior, yielding publication-ready figures and magnetic property metrics."
        width="100%">
 </div>
-       
+
 *FunMaP workflow integrating experimental and micromagnetic simulation pipelines for FePt Janus particles.*
 
 
@@ -71,7 +71,9 @@ FunMaP/
 │
 ├── simulations/                                               # Micromagnetic simulation scripts
 │   ├── FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb
-│   └── FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb
+│   ├── FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb
+│   ├── FePt_real_magnetization_snapshots.ipynb
+│   └── SIMULATIONS_GUIDE.md
 │
 ├── sample_data/                                               # Synthetic demo data (not real measurements)
 │   ├── squid/
@@ -99,6 +101,8 @@ FunMaP/
 |---|---|---|
 | Run mixed-phase FePt cap simulations | `simulations/FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb` | Hysteresis data for multiple diameters and phase fractions |
 | Run pure L1₀ diameter-sweep simulations | `simulations/FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb` | Hysteresis data for pure L1₀ caps |
+| Generate real magnetization snapshots | `simulations/FePt_real_magnetization_snapshots.ipynb` | XZ/XY state maps, selected-state PNG/SVG exports, interactive HTML viewer |
+| Read the simulation workflow guide | `simulations/SIMULATIONS_GUIDE.md` | Simulation-only usage notes, parameters, outputs, and troubleshooting |
 | Analyse SQUID batches | `analysis/SQUID_analysis_Caps.ipynb` | Averaged loops, statistics, corrected plots, .csv export |
 | Compare SQUID and simulation results | `analysis/SQUID-OOMMF-analysis.ipynb` | Two-panel SQUID–simulation overlay |
 | Analyse converted OOMMF simulation files | `analysis/OOMMF-analysis.ipynb` | Overlay plots, swifting field distribution (SFD) analysis, per-file reports |
@@ -191,6 +195,7 @@ After installation, open Jupyter Notebook inside the `ubermag_env` environment a
 - **Run micromagnetic hysteresis simulations**
   - `simulations/FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb`
   - `simulations/FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb`
+- **Generate real magnetization snapshots / interactive loop viewer** → `simulations/FePt_real_magnetization_snapshots.ipynb`
 - **Analyse SQUID measurements** → `analysis/SQUID_analysis_Caps.ipynb`
 - **Compare SQUID data with simulations** → `analysis/SQUID-OOMMF-analysis.ipynb`
 - **Plot XRD diffractograms** → `analysis/XRDplot.ipynb`
@@ -226,6 +231,11 @@ Hysteresis loops for diameters 1, 3, 5, 8, 10, 20 µm (60 nm cap thickness). Mix
 
 **`FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb`**  
 Same diameter sweep (1, 3, 5, 8, 10, 20 µm) but pure L1₀ phase — no A1 soft fraction. Runtime prompts select temperature and anisotropy mode (Radial or Uniaxial_Vertical). Supports checkpoint-based resume.
+
+**`FePt_real_magnetization_snapshots.ipynb`**
+Runs one selected cap with a lighter field schedule and saves real spatial magnetization states from `system.m`. The notebook can render selected XZ side-view states as PNG/SVG and build an interactive Plotly/HTML viewer from a folder of saved state files.
+
+For a simulation-only walkthrough, see `simulations/SIMULATIONS_GUIDE.md`.
 
 ### Key Parameters
 

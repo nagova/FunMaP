@@ -23,6 +23,10 @@ Comparison_Results_*/
 *.ohf
 *.h5
 ubermag_outputs/
+Snapshot_Study_*/
+Interactive_Snapshot_Study_*/
+simulations/Snapshot_Study_*/
+simulations/Interactive_Snapshot_Study_*/
 
 # OS
 .DS_Store
