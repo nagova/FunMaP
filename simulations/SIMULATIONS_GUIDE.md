@@ -182,7 +182,7 @@ This notebook saves:
 |--------|-------------|
 | `*_hysteresis.csv` | Loop for the selected cap |
 | `*_snapshot_manifest.csv` | Table linking each saved state to its field, averaged magnetization, and NPZ file |
-| `state_*.npz` | Saved XZ and XY `m_z/M_s` projection arrays for each field step |
+| `state_*.npz` | Saved XZ side-view and XY top-view `m_z/M_s` arrays for each field step |
 | selected-state `.png/.svg` | Publication/presentation exports generated from one chosen state file |
 | `interactive_snapshot_viewer.html` | Interactive Plotly viewer generated from a folder of saved states |
 
@@ -193,7 +193,7 @@ By default, the snapshot notebook saves 82 states:
 41 ascending-branch states
 ```
 
-The snapshot maps are generated from `system.m`, so they are real micromagnetic states from the simulation rather than stylized reconstructions from the averaged loop. Empty/white pixels in the XZ or XY maps represent projected lines of sight with no FePt magnetic material.
+The snapshot maps are generated from `system.m`, so they are real micromagnetic states from the simulation rather than stylized reconstructions from the averaged loop. By default, the XZ side view is a central slice near `y = 0`, which shows the cap cross-section more clearly than a full projection. Empty/white pixels represent positions outside the magnetic FePt shell.
 
 ---
 
