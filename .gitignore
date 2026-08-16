@@ -12,7 +12,7 @@ build/
 *.ipynb_checkpoints
 
 # Output folders (generated at runtime — not committed)
-squid_batch_analysis/
+squid_batch_analysis*/
 ubermag_outputs/
 xrd_outputs/
 Comparison_Results_*/
@@ -28,6 +28,9 @@ Interactive_Snapshot_Study_*/
 simulations/Snapshot_Study_*/
 simulations/Interactive_Snapshot_Study_*/
 simulations/cap_*states/
+
+# Ubermag/OOMMF install check (single-cell macrospin test, regenerated on demand)
+macrospin/
 
 # OS
 .DS_Store
