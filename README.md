@@ -65,6 +65,7 @@ FunMaP/
 │
 ├── analysis/                                                  # Experimental data analysis
 │   ├── SQUID_analysis_Caps.ipynb                              # Batch averaging & background correction
+│   ├── SQUID_analysis_Caps_v2.ipynb                           # + QD filling factor, absolute units, demag, IP/OOP
 │   ├── SQUID-OOMMF-analysis.ipynb                             # SQUID vs simulation overlay
 │   ├── OOMMF-analysis.ipynb                                   # Simulation hysteresis + SFD plots
 │   └── XRDplot.ipynb                                          # XRD masked/naked plotting
@@ -104,6 +105,7 @@ FunMaP/
 | Generate real magnetization snapshots | `simulations/FePt_real_magnetization_snapshots.ipynb` | XZ/XY state maps, selected-state PNG/SVG exports, interactive HTML viewer |
 | Read the simulation workflow guide | `simulations/SIMULATIONS_GUIDE.md` | Simulation-only usage notes, parameters, outputs, and troubleshooting |
 | Analyse SQUID batches | `analysis/SQUID_analysis_Caps.ipynb` | Averaged loops, statistics, corrected plots, .csv export |
+| Analyse SQUID batches in absolute units (IP/OOP) | `analysis/SQUID_analysis_Caps_v2.ipynb` | Magnetization in A/m and Tesla, demagnetization-corrected loops, IP–OOP comparison |
 | Compare SQUID and simulation results | `analysis/SQUID-OOMMF-analysis.ipynb` | Two-panel SQUID–simulation overlay |
 | Analyse converted OOMMF simulation files | `analysis/OOMMF-analysis.ipynb` | Overlay plots, swifting field distribution (SFD) analysis, per-file reports |
 | Plot XRD files | `analysis/XRDplot.ipynb` | Publication-ready XRD .PNG/.SVG plots |
@@ -197,6 +199,7 @@ After installation, open Jupyter Notebook inside the `ubermag_env` environment a
   - `simulations/FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb`
 - **Generate real magnetization snapshots / interactive loop viewer** → `simulations/FePt_real_magnetization_snapshots.ipynb`
 - **Analyse SQUID measurements** → `analysis/SQUID_analysis_Caps.ipynb`
+- **Analyse SQUID measurements in absolute units (IP/OOP)** → `analysis/SQUID_analysis_Caps_v2.ipynb`
 - **Compare SQUID data with simulations** → `analysis/SQUID-OOMMF-analysis.ipynb`
 - **Plot XRD diffractograms** → `analysis/XRDplot.ipynb`
 - **Analyse converted simulation files** → `analysis/OOMMF-analysis.ipynb`
@@ -312,6 +315,46 @@ Processes raw SQUID `.dat` files (Quantum Design format) for a single particle b
 - Bottom panel: background-corrected M/Msat — individual curves + mean ± 1 SD
 
 **Averaged CSV columns:** `Field_T`, `M_norm_desc`, `M_norm_asc`, `M_emu_desc`, `M_emu_asc`
+
+---
+
+### Script: `SQUID_analysis_Caps_v2.ipynb`
+
+Version 2 of the batch workflow. It keeps v1's averaging and background subtraction and adds four corrections needed to report **absolute** magnetization, following processing notes from Prof. E. Goering (MPI-FKF).
+
+`SQUID_analysis_Caps.ipynb` (v1) is unchanged and remains the validated single-geometry path. Use v2 when you need magnetization in physical units, or an in-plane / out-of-plane comparison.
+
+**Correction chain**
+
+```
+raw m (emu), H (Oe)
+  → 1. divide by the Quantum Design filling factor   → instrument-corrected emu
+  → 2. subtract linear diamagnetic slope             → ferromagnetic emu
+  → 3. divide by magnetic volume                     → emu/cm³, A/m, µ₀M in T
+  → 4. shear by demagnetizing factor                 → µ₀H_int = µ₀H_app − N·µ₀M
+  → 5. (optional) scale OOP to the IP saturation
+```
+
+Step 2 (a *substrate* correction, acting on the moment axis) and step 4 (a *field-axis* correction) are physically distinct and are easy to conflate; v2 applies both.
+
+**What v2 adds over v1**
+
+| Feature | Why it matters |
+|---|---|
+| QD filling-factor correction | Sample shape and VSM amplitude change the measured EMU; v1 applies no instrument correction |
+| Absolute units (emu/cm³, A/m, T) | Lets µ₀M be compared directly with the simulated µ₀Ms ≈ 1.26 T |
+| Demagnetizing (shearing) correction | Removes the apparent easy-axis steepening caused by sample shape |
+| IP / OOP pairing | Enables anisotropy comparison and OOP→IP saturation rescaling |
+| Sweep-rate estimation | Recovers the true ramp rate from MPMS timestamps |
+| Closed-cycle trimming | Removes virgin curves and park-at-zero tails that corrupt Hc and Mr |
+
+**Important:** the filling factors and demagnetizing factors are **sample-specific**. The defaults shipped in the notebook describe the foil disc used to validate it, not FePt caps. A sphere monolayer of hemispherical caps has no single rigorous demagnetizing factor, so the choice (thin-film limit `N⊥ = 1`, or compact-particle `N = 1/3`) is a modelling decision that must be stated explicitly. The notebook prints a critical value `N_crit = 1 / max|d(µ₀M)/d(µ₀H)|` and warns when the requested shear exceeds it, because beyond `N_crit` the corrected loop becomes multivalued.
+
+**Conventions:** `Hc` is identical in applied and internal field, since the shear term vanishes at `M = 0`. `Mr/Ms` is quoted at zero **applied** field.
+
+**Outputs:** four-panel PNG + SVG (corrected moment, absolute magnetization, internal-field loops, OOP rescaled to IP), a `.txt` report recording every correction factor used, and averaged + per-file metric CSVs.
+
+**Validation:** the correction chain reproduces Prof. Goering's independently computed results for a 4.95 mm × 0.56 mm foil disc to machine precision (field 1×10⁻¹⁶, µ₀M 5×10⁻¹⁰, internal field 4×10⁻¹² relative deviation), and returns metrics consistent to ~1% across sweep rates from 10 to 700 Oe/s.
 
 ---
 
