@@ -359,7 +359,17 @@ Step 2 (a *substrate* correction, acting on the moment axis) and step 4 (a *fiel
 
 **Validation:** the correction chain reproduces Prof. Goering's independently computed results for a 4.95 mm × 0.56 mm foil disc to machine precision (field 1×10⁻¹⁶, µ₀M 5×10⁻¹⁰, internal field 4×10⁻¹² relative deviation), and returns metrics consistent to ~1% across sweep rates from 10 to 700 Oe/s.
 
-The **anisotropy estimate is the one exception** and is disabled by default (`COMPUTE_ANISOTROPY = False`). On that same dataset the current `K_eff` / µ₀H_K implementation spans a factor of ~2.5 depending only on which file is used, returns the same value whichever axis is labelled "hard", and interpolates `H(M)` across both loop branches at once, which is ill-posed. It needs reimplementing on a single branch with the easy axis identified from the data before its output means anything.
+**Anisotropy (`COMPUTE_ANISOTROPY`, on by default).** Effective anisotropy is obtained by the area method on the **anhysteretic mid-curve** — the average of the descending and ascending branches at each field, which is single-valued and approximately reversible, so `H(M)` can be inverted legitimately:
+
+```
+K_eff = ∫₀^(m_frac·Ms) (µ₀H_hard − µ₀H_easy) dM
+```
+
+evaluated on internal field, with both geometries rescaled to a common Ms, the easy axis identified from squareness rather than assumed, and `K_eff` kept **signed** so an inconsistent assignment is visible instead of hidden.
+
+Verified against an analytic Stoner–Wohlfarth pair with a known `K_u`: it recovers `K_u` to 0.09%, recovers µ₀H_K from the hard-axis slope exactly, and reproduces the predicted `m_frac²` truncation scaling to <1×10⁻³ over `m_frac` = 0.5–0.99.
+
+Two **independent** anisotropy-field estimates are reported — one from the integrated area (`2K/Ms`), one from the hard-axis slope (`Ms / dM/dµ₀H`). They agree only when the sample really is uniaxial, so their ratio is a built-in validity check, alongside `r2_hard` (linearity of the hard axis) and a monotonicity check on the mid-curve. For curved FePt caps expect `r2_hard` well below 1: the easy axis is distributed over the cap surface, so `K_eff` is an ensemble-effective descriptor rather than an intrinsic anisotropy constant.
 
 ---
 
