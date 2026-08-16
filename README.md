@@ -43,18 +43,17 @@ Each module is self-contained but designed to function within a unified research
 
 💡 Tip: You can switch between [Light and Dark mode](https://github.com/settings/appearance) in your GitHub profile settings for better readability.
 
-<!-- Preview images — uncomment once figures/ folder is populated
 ## Preview
 
-### SQUID analysis
-![SQUID analysis example](figures/squid_example.png)
+Magnetization states along a full hysteresis loop for a 10 µm FePt cap with radial
+anisotropy and a 15% A1 soft fraction, at 0 K. Left: the loop with a marker at the current
+field. Centre: XZ central slice through the cap. Right: XY top view. Colour is `m_z/M_s`;
+white is outside the magnetic shell.
 
-### SQUID–simulation comparison
-![SQUID–simulation overlay](figures/squid_oommf_overlay.png)
+![Magnetization snapshots along the hysteresis loop](results/snapshot_10um_radial_15pctA1/snapshot_animation.gif)
 
-### XRD plotting
-![XRD plot example](figures/xrd_example.png)
--->
+More example outputs, including the underlying state files, are in
+[`results/`](results/README.md).
 
 ---
 
@@ -75,6 +74,9 @@ FunMaP/
 │   ├── FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb
 │   ├── FePt_real_magnetization_snapshots.ipynb
 │   └── SIMULATIONS_GUIDE.md
+│
+├── results/                                                   # Example outputs (see results/README.md)
+│   └── snapshot_10um_radial_15pctA1/                          # Loop animation, summary figure, state files
 │
 ├── sample_data/                                               # Synthetic demo data (not real measurements)
 │   ├── squid/
@@ -104,6 +106,7 @@ FunMaP/
 | Run pure L1₀ diameter-sweep simulations | `simulations/FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb` | Hysteresis data for pure L1₀ caps |
 | Generate real magnetization snapshots | `simulations/FePt_real_magnetization_snapshots.ipynb` | XZ/XY state maps, selected-state PNG/SVG exports, interactive HTML viewer |
 | Read the simulation workflow guide | `simulations/SIMULATIONS_GUIDE.md` | Simulation-only usage notes, parameters, outputs, and troubleshooting |
+| See example outputs without running anything | `results/README.md` | Loop animation, summary figure, and representative state files |
 | Analyse SQUID batches | `analysis/SQUID_analysis_Caps.ipynb` | Averaged loops, statistics, corrected plots, .csv export |
 | Analyse SQUID batches in absolute units (IP/OOP) | `analysis/SQUID_analysis_Caps_v2.ipynb` | Magnetization in A/m and Tesla, demagnetization-corrected loops, IP–OOP comparison |
 | Compare SQUID and simulation results | `analysis/SQUID-OOMMF-analysis.ipynb` | Two-panel SQUID–simulation overlay |
