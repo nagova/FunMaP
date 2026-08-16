@@ -359,6 +359,8 @@ Step 2 (a *substrate* correction, acting on the moment axis) and step 4 (a *fiel
 
 **Validation:** the correction chain reproduces Prof. Goering's independently computed results for a 4.95 mm × 0.56 mm foil disc to machine precision (field 1×10⁻¹⁶, µ₀M 5×10⁻¹⁰, internal field 4×10⁻¹² relative deviation), and returns metrics consistent to ~1% across sweep rates from 10 to 700 Oe/s.
 
+The **anisotropy estimate is the one exception** and is disabled by default (`COMPUTE_ANISOTROPY = False`). On that same dataset the current `K_eff` / µ₀H_K implementation spans a factor of ~2.5 depending only on which file is used, returns the same value whichever axis is labelled "hard", and interpolates `H(M)` across both loop branches at once, which is ill-posed. It needs reimplementing on a single branch with the easy axis identified from the data before its output means anything.
+
 ---
 
 ### Script: `SQUID-OOMMF-analysis.ipynb`
