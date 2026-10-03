@@ -250,8 +250,6 @@ FunMaP/
 │   ├── GitHubHeader_light.png
 │   └── GitHubHeader_dark.png
 │
-├── v1/                      # ⚠️ Legacy Version 1 Archive (preserved locally & in MPI-IS, excluded via .gitignore)
-│
 ├── analysis/                # Interactive exploratory Jupyter Notebooks
 │   ├── fept_xrd_analysis.py # Quantitative XRD fitting script
 │   ├── XRDplot.ipynb        # Interactive XRD visualizer
@@ -267,11 +265,8 @@ FunMaP/
 ├── validate_micromagnetics.py # The Five Physics Acceptance Gates suite
 ├── pyproject.toml           # Standard PEP 517/518 build specification
 ├── environment.yml          # Conda environment definition
-└── .gitignore               # Excludes MPI-IS/, v1/, data/, outputs/, archive/, scratch/
+└── .gitignore               # Standard project ignore file
 ```
-
-> [!IMPORTANT]
-> **Private MPI-IS Directory**: In accordance with Max Planck Institute institutional guidelines, raw experimental measurement archives (original multi-gigabyte SEM TIFF series, SQUID logs, and manuscript LaTeX source files) are housed in `MPI-IS/` and `data/raw/`, both strictly excluded from public version control via `.gitignore`. Public users can reproduce the complete workflow using `demo_data/` or by downloading the public Edmond open data package.
 
 ---
 
@@ -279,8 +274,8 @@ FunMaP/
 
 For complete academic transparency, **FunMaP Version 1 (V1)** accompanied the original master's thesis and initial preprint (*"Ordering, not curvature provides means for magnetic tunability for FePt based Janus particles"*, arXiv:2605.12283).
 
-### Why V1 is Excluded from Git (`.gitignore`)
-To prevent confusion among researchers, external contributors, and students cloning this repository, the legacy V1 directory (`v1/`) is **strictly excluded from public version control via `.gitignore`** and archived safely within the Max Planck Institute internal project structure (`MPI-IS/`). This ensures that:
+### Transition from v1 to v2
+To ensure clarity and prevent confusion, this repository hosts the verified, bug-free, and exchange-resolved v2 pipeline. The historical development and forensic diagnostics of the early exploratory models are documented in [`simulation_evolution_methodology.md`](simulation_evolution_methodology.md). This ensures that:
 1. Anyone cloning the repository interacts exclusively with the verified, bug-free, and exchange-resolved v2 pipeline.
 2. Legacy exploratory notebooks with known discretization artifacts are not inadvertently executed for new scientific studies.
 3. The historical development and forensic diagnostics remain fully documented and transparent in [`simulation_evolution_methodology.md`](simulation_evolution_methodology.md).
