@@ -192,56 +192,7 @@ Understanding magnetization reversal in curved microstructures required moving f
 4. **Thickness-Dependent Ordering Kinetics**: Real line-of-sight sputtering deposits a tapered cosine profile $t(\theta) = t_0\cos\theta$. At the thin equator ($t < 15\text{ nm}$), post-annealing chemical ordering is kinetically suppressed, forming an *in-situ* equatorial soft nucleation pad while the thick polar crown remains highly ordered $L1_0$ ($S \approx 0.76\text{--}0.90$).
 5. **Colloidal Contact Necks**: High-resolution FE-SEM directly reveals continuous metallic necking between adjacent particles in close-packed monolayers ($\eta \approx 0.90$), confirming interparticle exchange coupling that further lowers the macroscopic switching barrier.
 
-For full mathematical proofs, solver algorithms, and mesh convergence curves, see [`simulation_evolution_methodology.md`](simulation_evolution_methodology.md).
-
----
-
-## 📊 Visual Gallery of Findings
-
-All figures below are generated deterministically by the pipeline and adhere to American Physical Society (APS/PRL/PRB) and Nature publishing standards.
-
-### Figure 1: Curvature Regime Map & Application Design Window
-Mapping particle dimensions against the physical exchange ratio $\ell_{\mathrm{ex}} / R$ identifies three distinct physical regimes: the curvature-dominated regime ($\ell_{\mathrm{ex}}/R \ge 0.1$, typical of sub-200 nm caps), the intermediate crossover regime, and the **locally planar regime** ($\ell_{\mathrm{ex}}/R < 0.01$) where microscale FePt caps reside.
-
-<div align="center">
-  <img src="assets/figures/Fig1_regime_map.png" alt="Figure 1: Curvature Regime Map and Application Design Window" width="85%">
-</div>
-
----
-
-### Figure 2: Microparticle Morphology, Monolayer Packing & Contact Necks
-Field-Emission Scanning Electron Microscopy (Zeiss GeminiSEM 500) demonstrates high-density hexagonal close-packing ($\eta = 0.90\text{--}0.91$). High-magnification micrographs highlight the formation of continuous interparticle metallic contact necks, establishing inter-cap exchange coupling.
-
-<div align="center">
-  <img src="assets/figures/Fig2_morphology.png" alt="Figure 2: SEM Morphology and Interparticle Bridging" width="85%">
-</div>
-
----
-
-### Figure 3: X-Ray Diffraction & Chemical Ordering Parameter
-Bragg-Brentano symmetric diffractograms (Rigaku SmartLab) corrected for Cu $K\beta$ and W $L\alpha$ tube satellites. Tracking the (001) and (110) superlattice reflections confirms successful phase transformation to the face-centered tetragonal $L1_0$ phase ($c/a \approx 0.968\text{--}0.974$, chemical order parameter $S \approx 0.70\text{--}0.75$).
-
-<div align="center">
-  <img src="assets/figures/Fig3_XRD.png" alt="Figure 3: XRD Survey and Peak Deconvolution" width="85%">
-</div>
-
----
-
-### Figure 4: SQUID Magnetometry & Statistical Curvature Invariance
-High-field MPMS3 hysteresis loops ($\pm 7\text{ T}$) processed via robust diamagnetic background slope subtraction ($\ge 6.0\text{ T}$). Joint OLS regression across two independent annealing batches confirms that out-of-plane coercivity is statistically invariant across 3, 5, 8, and 10 µm spheres ($p = 0.119$).
-
-<div align="center">
-  <img src="assets/figures/Fig4_SQUID.png" alt="Figure 4: SQUID Hysteresis Loops and Joint Regression" width="85%">
-</div>
-
----
-
-### Figure 5: Definitive R1 1.0-nm Micromagnetic Benchmark
-Full 3D micromagnetic simulation of a $D = 200\text{ nm}$ hemispherical cap discretized with $1.0\text{ nm}$ cubic cells ($16.38\times 10^6$ finite elements), resolving both $\ell_{\mathrm{ex}} = 3.99\text{ nm}$ and $\delta_0 = 1.23\text{ nm}$. Cross-sectional vector snapshots illustrate localized nucleation at the rim, domain-wall canting, and Barkhausen reversal.
-
-<div align="center">
-  <img src="assets/figures/Fig5_R1_benchmark.png" alt="Figure 5: R1 Benchmark Loop and Magnetization Snapshots" width="85%">
-</div>
+For full mathematical proofs, solver algorithms, and mesh convergence curves, see [`simulation_evolution_methodology.md`](simulation_evolution_methodology.md). For complete publication figures (Curvature-Regime Map, SEM morphology, XRD diffractograms, and SQUID hysteresis loops), please refer directly to the manuscript on **[arXiv:2605.12283](https://arxiv.org/abs/2605.12283)**.
 
 ---
 
