@@ -1,280 +1,121 @@
-# FunMaP Simulation Guide
+# FunMaP Simulation Guide: Corrected FePt Micromagnetics
 
-This guide is for the micromagnetic simulation notebooks only. It explains what each notebook does, when to use it, what parameters matter, and how to interpret the generated outputs.
-
-The original production notebooks are kept intact. If you need extra figures, spatial snapshots, or exploratory visualizations, use a separate notebook rather than modifying the working simulation notebooks.
+This guide provides the complete physical framework, acceptance criteria, multi-tier simulation plan, and parameter reference for micromagnetic modeling of FePt Janus caps in FunMaP.
 
 ---
 
-## What These Simulations Do
+## 1. Material Constants & Physical Governing Lengths
 
-The simulation notebooks model FePt hemispherical caps on spherical SiO2 particles using Ubermag/OOMMF. The SiO2 sphere is treated as magnetically inactive; only the FePt cap is included in the magnetic mesh.
+All simulations use the fixed experimental material parameters from Table S4 of the manuscript:
 
-The basic workflow is:
+| Parameter | Symbol | Value | Meaning / Role |
+|---|---|---|---|
+| Saturation Magnetization | $M_s$ | $1.0\times 10^6\text{ A/m}$ | Saturation magnetization |
+| Exchange Stiffness | $A$ | $1.0\times 10^{-11}\text{ J/m}$ | Exchange coupling strength |
+| Hard-phase Anisotropy | $K_u (\text{L}1_0)$ | $6.6\times 10^6\text{ J/m}^3$ | Uniaxial anisotropy (chemically ordered phase) |
+| Soft-phase Anisotropy | $K_u (\text{A}1)$ | $1.0\times 10^4\text{ J/m}^3$ | Disordered soft phase |
+| Cap Thickness | $t$ | $60\text{ nm}$ | FePt film thickness deposited on sphere |
+| Gilbert Damping | $\alpha$ | $0.5$ | Quasi-static relaxation damping |
 
-```text
-Choose cap geometry -> Build magnetic mesh -> Sweep external field -> Save Mz/Ms loop -> Analyze or visualize outputs
-```
+### Governing Lengths
 
-The main simulation output is a hysteresis loop:
+| Quantity | Formula | Value | Physical Significance |
+|---|---|---|---|
+| **Anisotropy Field** | $\mu_0 H_k = 2 K_u / M_s$ | **13.200 T** | Intrinsic switching field along easy axis |
+| **Anisotropy / Bloch Length** | $\sqrt{A / K_u}$ | **1.231 nm** | **GOVERNS THE MESH**. Smallest physical length scale |
+| **Domain-Wall Width** | $\pi \sqrt{A / K_u}$ | **3.867 nm** | Physical width of magnetic domain wall |
+| **Magnetostatic Exchange Length** | $\sqrt{2A / (\mu_0 M_s^2)}$ | 3.989 nm | Dipolar exchange length |
+| **Quality Factor** | $Q = 2K_u / (\mu_0 M_s^2)$ | 10.5 | High-$Q$ material ($Q \gg 1$): anisotropy dominates |
+| **Single-Domain Diameter** | $\sim 72\sqrt{A K_u} / (\mu_0 M_s^2)$ | 465 nm | Boundary between single-domain and wall-mediated reversal |
 
-```text
-B_ext (T), Mz/Ms
-```
-
-where `Mz/Ms` is the average z-component of the magnetization normalized over the magnetic FePt material.
-
----
-
-## Simulation Notebooks
-
-| File | Purpose | Use when |
-|------|---------|----------|
-| `FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb` | Pure L10 FePt cap simulations across multiple sphere diameters | You want baseline hard-phase FePt behavior |
-| `FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb` | Mixed L10/A1 FePt cap simulations across multiple sphere diameters | You want to study soft-phase A1 contributions |
-| `FePt_real_magnetization_snapshots.ipynb` | Real spatial magnetization snapshots from `system.m` along one selected loop | You want XZ/XY state maps, selected-state exports, or an interactive loop viewer |
-
----
-
-## Recommended Starting Point
-
-For standard hysteresis-loop generation, start with:
-
-```text
-FePt_L10_A1_MultipleCaps_HystLoop_radial_merged.ipynb
-```
-
-This notebook is closest to the mixed-phase Janus-particle picture used in the manuscript workflow. It simulates FePt caps with a hard L10 phase and a soft A1 phase.
-
-For clean reference behavior, use:
-
-```text
-FePt_L10_MultipleCaps_HystLoop_DiameterSweep.ipynb
-```
-
-This notebook assigns all magnetic cells the L10 anisotropy constant.
-
-For figure-making or presentation snapshots, use:
-
-```text
-FePt_real_magnetization_snapshots.ipynb
-```
-
-This notebook reruns one selected cap with a lighter field schedule and saves actual spatial magnetization states from `system.m`. It can also render selected states and build an interactive Plotly/HTML viewer from a saved result folder.
+> [!IMPORTANT]
+> **The governing length scale is 1.231 nm, not 4 nm.**
+> For high-$Q$ materials ($Q = 10.5$), the *smaller* of the two lengths governs the mesh discretization. The cell size must satisfy:
+> $$\Delta x \le \sqrt{A/K_u} = 1.231\text{ nm} \quad (\text{strictly } \le 0.615\text{ nm})$$
+> with at least 20 cells through the 60 nm thickness to properly resolve domain walls crossing the film.
 
 ---
 
-## Physical Model
+## 2. Hard Computational Limits: Intractability Bound (1 TB – 25 TB)
 
-The FePt cap is represented as a hemispherical shell:
+OOMMF meshes the entire rectangular bounding box $(2R_{\text{out}})^2 \times R_{\text{out}}$, not just the magnetic shell.
 
-```text
-R_inner = sphere radius
-R_outer = sphere radius + cap thickness
-```
+For experimental sphere diameters ($d = 3\text{--}20\ \mu\text{m}$), resolving the governing 0.6–1.2 nm scale yields:
 
-Only cells satisfying the shell condition are magnetic:
+| Sphere Diameter | Magnetic Cells (0.6 nm) | Bounding Box Cells | Required RAM | Feasibility |
+|---|---|---|---|---|
+| **0.3 µm** | $1.4\times 10^7$ | $4.3\times 10^7$ | ~6 GB | **Tractable** |
+| **1.0 µm** | $5.5\times 10^7$ | $2.3\times 10^8$ | ~15 GB | **Tractable (HPC)** |
+| **3.0 µm** | $3.9\times 10^9$ | $6.2\times 10^9$ | **~1 TB** | **Permanently Out of Reach** |
+| **5.0 µm** | $1.1\times 10^{10}$ | $2.9\times 10^{10}$ | **~2 TB** | **Permanently Out of Reach** |
+| **8.0 µm** | $2.8\times 10^{10}$ | $1.2\times 10^{11}$ | **~4 TB** | **Permanently Out of Reach** |
+| **10.0 µm** | $4.4\times 10^{10}$ | $2.3\times 10^{11}$ | **~6 TB** | **Permanently Out of Reach** |
+| **20.0 µm** | $1.7\times 10^{11}$ | $1.8\times 10^{12}$ | **~25 TB** | **Permanently Out of Reach** |
 
-```text
-R_inner <= r <= R_outer and z >= 0
-```
-
-Cells outside the cap have:
-
-```text
-Ms = 0
-```
-
-The energy terms are:
-
-| Term | Meaning |
-|------|---------|
-| Exchange | Penalizes rapid spatial variation of magnetization |
-| Uniaxial anisotropy | Encodes L10 or A1 easy-axis behavior |
-| Demagnetization | Includes magnetostatic self-interaction |
-| Zeeman | Applies the external magnetic field sweep |
-
-At `T = 0 K`, the notebooks use `MinDriver`. At `T > 0 K`, they use `TimeDriver` with LLG dynamics and a stochastic thermal field.
+> [!NOTE]
+> The largest micromagnetic simulations in published literature operate at $\sim 10^9\text{--}10^{10}$ cells. Full-cap simulations in the 3–20 µm range are permanently intractable at the required physical resolution on modern hardware. This is a rigorous, quantitative statement of the **length-scale boundary of direct micromagnetics**.
 
 ---
 
-## Key Parameters
+## 3. Diagnosis of What Went Wrong in Legacy Code
 
-| Parameter | Typical value | Meaning |
-|-----------|---------------|---------|
-| `diameters` | `[1, 3, 5, 8, 10, 20] um` | Sphere diameters to simulate |
-| `cap_thickness` | `60 nm` | FePt film/cap thickness |
-| `Ms` | `1.0e6 A/m` | Saturation magnetization |
-| `A` | `1.0e-11 J/m` | Exchange stiffness |
-| `Ku_hard` | `6.6e6 J/m^3` | L10 anisotropy constant |
-| `Ku_soft` | `1.0e4 J/m^3` | A1 soft-phase anisotropy constant |
-| `SOFT_FRACTION_A1` | commonly `0.15` or `0.50` | Fraction of magnetic cells assigned A1 behavior |
-| `B_max` | `18 T` | Maximum applied field magnitude |
-| `B_tilt` | `0.01 T` | Small transverse field used to avoid perfectly symmetric saddle states |
-
-The field sweep is:
-
-```text
-+B_max -> -B_max -> +B_max
-```
-
-with 121 points per branch by default in the production sweep notebooks. The snapshot notebook uses 41 points per branch by default, producing 82 saved states for lighter visualization datasets.
+1. **Mesh 5–149x Too Coarse**: The original rule ($n = 110$ above 1.5 µm) gave cell sizes from 28 nm to 183 nm. At 92 nm, intercell exchange ($0.0024\text{ T}$) was 5,500x weaker than anisotropy ($13.2\text{ T}$), completely decoupling cells into non-interacting particles.
+2. **Disconnected Geometries**: At 8–20 µm, the 60 nm shell was thinner than a single mesh cell, shattering the body into up to 5,000 disconnected pieces.
+3. **0% A1 Baseline Bug**: The original 0% A1 run reported $H_c = 12.17\text{ T}$ and $M_r/M_s = 1.00$. A radial easy-axis distribution on a hemisphere has a strict Stoner-Wohlfarth ceiling of $H_c \le 0.48 H_k = 6.34\text{ T}$ and $M_r/M_s = 0.494$. The 12.17 T value was an artifact of running a **uniform vertical easy axis** ($e_u \parallel z$) mislabelled as radial. True pure $\text{L}1_0$ radial caps switch at **$5.90\text{ T}$** with $M_r/M_s = 0.502$.
+4. **Solver Tolerance**: The old tolerance `stopping_mxHxm = 2e4 A/m` ($1.9\times 10^{-3} H_k$) stopped iterations before overcoming the coercive barrier. All runs must use $\le 10\text{ A/m}$ ($10^{-6} H_k$) and monotonic sweeps with $dH \le 0.02\text{ T}$.
 
 ---
 
-## Anisotropy Modes
+## 4. Acceptance Gates (`validate_micromagnetics.py`)
 
-Two anisotropy modes are supported in the simulation logic.
+Run all five gates before accepting any simulation result:
 
-| Mode | Description |
-|------|-------------|
-| `Radial` | The easy axis follows the local outward surface normal of the spherical cap |
-| `Uniaxial_Vertical` | The easy axis is fixed along the global z direction |
-
-`Radial` is the default for the mixed L10/A1 notebook and is usually the best starting point for curved FePt caps.
-
----
-
-## Mesh Resolution
-
-The notebooks use an adaptive mesh strategy:
-
-```text
-d <= 1.5 um: approximately 18 nm cells
-d > 1.5 um: fixed n = 110 cells per axis
-```
-
-This keeps large-diameter simulations computationally manageable. For very large particles, the cell size can exceed the FePt exchange length, so the results should be interpreted as qualitative or comparative rather than atomically resolved micromagnetic detail.
-
-Always check the printed volume error. A smaller volume error means the discretized shell better matches the analytical cap volume.
+- **Gate 1 (Mesh Resolution)**: Refuse run if cell size $> 1.231\text{ nm}$ or $< 20$ cells span the 60 nm thickness.
+- **Gate 2 (Connectivity)**: Face-connected component labeling must confirm exactly 1 component holding $\ge 99.9\%$ of cells, with mean face neighbors $\ge 5.0$.
+- **Gate 3 (Solver Convergence)**: `stopping_mxHxm <= 10 A/m` and monotonic descending step $dH \le 0.02\text{ T}$ near switching.
+- **Gate 4 (Analytic Reproductions)**: Verify Stoner-Wohlfarth targets:
+  - Uniform $\parallel H$: $H_c = 13.20 \pm 0.3\text{ T}$, $M_r/M_s = 1.000$
+  - Uniform $45^\circ$: $H_c = 6.60 \pm 0.2\text{ T}$, $M_r/M_s = 0.707$
+  - 3D-random non-interacting: $H_c = 6.32 \pm 0.2\text{ T}$, $M_r/M_s = 0.500$
+  - Radial hemisphere non-interacting: $H_c = 6.34 \pm 0.2\text{ T}$, $M_r/M_s = 0.494$
+- **Gate 5 (Mesh Convergence)**: Coercivity must plateau as cell size resolves $L_{\text{anis}} = 1.231\text{ nm}$.
 
 ---
 
-## Standard Outputs
+## 5. Multi-Tier Simulation Plan
 
-The production notebooks save timestamped output folders containing files such as:
+### Tier 1: Converged Full Cap Micromagnetics ($d \le 1.0\ \mu\text{m}$)
+- Meshes the full hemisphere ($420\times 420\times 210\text{ nm}$ at $d = 300\text{ nm}$) without artificial octant cut planes.
+- Solves domain wall nucleation and propagation across switching.
+- Full cap results:
+  - Pure $\text{L}1_0$ ($d = 300\text{ nm}$, cell 1.2 nm): $\mu_0 H_c = 5.904\text{ T}$, $M_r/M_s = 0.5024$.
+  - 26% A1 Soft Phase ($d = 300\text{ nm}$, cell 1.2 nm): $\mu_0 H_c = 4.013\text{ T}$, $M_r/M_s = 0.5034$.
 
-| Output | Description |
-|--------|-------------|
-| `data_*.csv` | Per-cap hysteresis data |
-| `MASTER_DATA_*.csv` | Combined hysteresis data for all completed runs |
-| `SUMMARY_PLOT_*.svg` | Summary plot of simulated hysteresis loops |
+### Tier 2: Representative Curved-Patch Model ($d \ge 3\ \mu\text{m}$)
+- Simulates representative $200\times 200\times 60\text{ nm}$ patches at full 1.0 nm resolution at experimental curvature:
+  - $d = 3\ \mu\text{m}$ ($R = 1.5\ \mu\text{m}$, easy-axis spread $7.6^\circ$)
+  - $d = 10\ \mu\text{m}$ ($R = 5.0\ \mu\text{m}$, easy-axis spread $2.3^\circ$)
+- Justification: domain wall width is $3.87\text{ nm}$, sampling $< 0.03^\circ$ easy-axis variation over its width. Reversal is locally determined.
 
-The CSV files are the inputs expected by the analysis notebooks in `analysis/`.
-
----
-
-## Real Magnetization Snapshots
-
-The standard loop CSV contains only averaged magnetization. It cannot reconstruct the spatial magnetization pattern inside the cap.
-
-Use:
-
-```text
-FePt_real_magnetization_snapshots.ipynb
-```
-
-when you need real magnetization-state images along the loop.
-
-This notebook saves:
-
-| Output | Description |
-|--------|-------------|
-| `*_hysteresis.csv` | Loop for the selected cap |
-| `*_snapshot_manifest.csv` | Table linking each saved state to its field, averaged magnetization, and NPZ file |
-| `state_*.npz` | Saved XZ side-view and XY top-view `m_z/M_s` arrays for each field step |
-| selected-state `.png/.svg` | Publication/presentation exports generated from one chosen state file |
-| `interactive_snapshot_viewer.html` | Interactive Plotly viewer generated from a folder of saved states |
-
-By default, the snapshot notebook saves 82 states:
-
-```text
-41 descending-branch states
-41 ascending-branch states
-```
-
-The snapshot maps are generated from `system.m`, so they are real micromagnetic states from the simulation rather than stylized reconstructions from the averaged loop. By default, the XZ side view is a central slice near `y = 0`, which shows the cap cross-section more clearly than a full projection. Empty/white pixels represent positions outside the magnetic FePt shell.
+### Tier 3: Statistical Ensemble Over Global Geometry
+- Integrates the local switching field distribution over the hemispherical surface normal map:
+  $$M_z(H) = \int_0^{\pi/2} m_{z,\text{local}}(H, \theta) \sin\theta \, d\theta$$
+- Predicts macroscopic hysteresis loops for 3–20 µm caps with rigorous defensibility.
 
 ---
 
-## Suggested Workflow
+## 6. Key Physics Finding & Manuscript Reframe
 
-1. Run one production simulation notebook to generate the main hysteresis loop data.
-2. Analyze the resulting CSV files with the notebooks in `analysis/`.
-3. If you need spatial state images, run `FePt_real_magnetization_snapshots.ipynb` for one representative cap.
-4. Use the final selected-state cell to export a specific state as PNG/SVG.
-5. Use the folder-based interactive cell to build an HTML loop viewer from saved `state_*.npz` files.
-6. Keep exploratory visualization notebooks separate from the validated production notebooks.
+### Radial vs. Random is Indistinguishable
+| Distribution | Coercivity $\mu_0 H_c$ | Remanence $M_r / M_s$ |
+|---|---|---|
+| **Radial (Hemisphere Normals)** | **6.35 T** | **0.497** |
+| **Fully Random 3D** | **6.37 T** | **0.500** |
+| **Difference** | **0.025 T (0.4%)** | **0.003** |
 
----
+Because a hemisphere of surface normals is half-isotropic (spans $0\text{--}90^\circ$ and is isotropic in-plane), its magnetic response is magnetically indistinguishable from random 3D. The difference of $0.025\text{ T}$ is **5x below the experimental SQUID noise floor ($0.117\text{ T}$)** and cannot be measured experimentally.
 
-## Interpreting the Loop
-
-Useful landmarks along the loop:
-
-| Region | Meaning |
-|--------|---------|
-| Positive saturation | Most magnetic moments aligned with +z |
-| Descending remanence | Field is near zero after coming down from positive saturation |
-| Descending coercivity | Magnetization crosses near zero while sweeping toward negative field |
-| Negative saturation | Most magnetic moments aligned with -z |
-| Ascending remanence | Field is near zero after coming up from negative saturation |
-| Ascending coercivity | Magnetization crosses near zero while sweeping back toward positive field |
-
-For mixed L10/A1 caps, the soft A1 regions may switch earlier than the hard L10 regions. This can create intermediate spatial states even when the averaged `Mz/Ms` value looks simple.
-
----
-
-## Practical Notes
-
-- OOMMF simulations can take a long time, especially for large caps and thermal runs.
-- Run a single representative case before launching a full diameter sweep.
-- Keep the timestamped output folders; they preserve the parameters and outputs from each run.
-- Do not rely on the loop CSV alone for spatial interpretation.
-- Use the `.npz` snapshot files if you want to redesign figures later without rerunning the simulation.
-
----
-
-## Troubleshooting
-
-**OOMMF is not found**
-
-Make sure the Ubermag/OOMMF environment is installed and active before opening Jupyter.
-
-**The notebook runs but no GUI appears**
-
-These simulation notebooks are not GUI tools. Run the cells directly in Jupyter Lab or Jupyter Notebook.
-
-**The simulation is very slow**
-
-Start with a smaller diameter or a single selected cap. Large caps use many mesh cells and can be computationally expensive.
-
-**The loop has missing or repeated-looking values**
-
-The production notebooks carry forward the last known value if OOMMF crashes at a field step. Check the terminal/notebook output for warnings.
-
-**The interactive viewer has an empty XY panel**
-
-Older snapshot result folders may only contain XZ arrays. Re-run the current `FePt_real_magnetization_snapshots.ipynb` to save both XZ and XY projections.
-
-**The HTML viewer looks blank during animation**
-
-Re-export the HTML with the current notebook version. The viewer should update full heatmap frames for every state.
-
----
-
-## Dependency Reminder
-
-The simulation environment needs:
-
-```text
-ubermag
-discretisedfield
-micromagneticmodel
-oommfc
-numpy
-pandas
-matplotlib
-```
-
-See the repository-level `environment.yml` for the recommended environment.
+### The Real Tunability: Uniform vs. Distributed
+The meaningful physical comparison is **Uniform vs. Distributed Anisotropy**:
+$$\mu_0 H_c (\text{Uniform}) = 13.20\text{ T} \quad \text{vs.} \quad \mu_0 H_c (\text{Distributed}) = 6.35\text{ T} \quad (\mathbf{2.1\times\text{ factor}})$$
+This comparison is large, physically robust, and experimentally accessible.

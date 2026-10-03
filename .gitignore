@@ -1,9 +1,9 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
-.eggs/
+*$py.class
 *.egg-info/
+.eggs/
 dist/
 build/
 
@@ -11,35 +11,70 @@ build/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Output folders (generated at runtime — not committed)
-squid_batch_analysis*/
-ubermag_outputs/
-xrd_outputs/
-Comparison_Results_*/
+# Testing & Cache
+.pytest_cache/
 
-# Simulation outputs (large binary/data files)
+# Experimental Data, Reports & Packages (Private / Max Planck Institute)
+MPI-IS/
+mpi-is/
+[mM][pP][iI]-[iI][sS]/
+data/
+outputs/
+archive/
+scratch/
+FunMaP_Data_Package/
+FunMaP_Data_Package.zip
+FunMaP_Physical_Correction_Report.*
+
+# Legacy Version 1 (Preserved locally and in MPI-IS, excluded from GitHub to prevent confusion)
+v1/
+
+# Simulation outputs (large binary/data files and runs)
 *.omf
 *.odt
 *.ohf
 *.h5
+*.log
+*.tmp
+*.svg.tmp
+debug_*.txt
+figures_debug.log
+plot_debug.log
+py_trace.txt
 ubermag_outputs/
+squid_batch_analysis*/
+xrd_outputs/
+Comparison_Results_*/
 Snapshot_Study_*/
 Interactive_Snapshot_Study_*/
 simulations/Snapshot_Study_*/
 simulations/Interactive_Snapshot_Study_*/
 simulations/cap_*states/
-
-# Ubermag/OOMMF install check (single-cell macrospin test, regenerated on demand)
+simulations/r1_*_snap/
 macrospin/
+**/macrospin/
+conv_300nm_*/
+R1_hemi_*/
+R2_strip_*/
+R2b_wedge_*/
+M1_wedge_*/
+M4_wedge_*/
+M5_wedge_*/
+test_*_cube/
+test_c_*/
+scratch_*/
+
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Editors
+# Editors & AI assistants
 .vscode/
 .idea/
 *.swp
+.claude/
+*/.claude/
 
 # Credentials / private
 .env

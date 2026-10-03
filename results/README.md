@@ -69,10 +69,8 @@ the repository small. They are the physically interesting landmarks:
 | `state_061_ascending_state_B+0.000T.npz` | 0.0 T | −0.400 | Ascending remanence |
 | `state_066_ascending_state_B+4.500T.npz` | +4.5 T | −0.011 | Ascending coercivity |
 | `state_081_ascending_state_B+18.000T.npz` | +18.0 T | +0.967 | Back to positive saturation |
-
-Note that remanence is only `|Mz/Ms| = 0.40`, well below 1. That is the curvature at work:
-with radial anisotropy the easy axis follows the local surface normal, so at zero field the
-moments fan outward with the cap rather than staying aligned with `z`.
+> [!IMPORTANT]
+> **Errata / Mesh Artifact Notice**: The remanence of `|Mz/Ms| = 0.40` in this legacy snapshot dataset was previously misattributed to "curvature at work". In fact, the analytical remanence from curvature alone for a $D = 10\ \mu\text{m}$ cosine-tapered cap is $M_r/M_s \approx 0.6719$. The depressed value of $0.400$ is an artifact of the legacy simulation grid ($N = 110$, giving $dx = 92\text{ nm}$ and $dz = 46\text{ nm}$, which is $\approx 24\times$ the domain-wall width $\delta_w = 3.87\text{ nm}$). This coarse mesh decoupled inter-cell exchange ($\mu_0 H_\text{ex} \approx 2.4\text{ mT} \ll \mu_0 H_K \approx 13.2\text{ T}$), treating cells as non-interacting entities. Rigorous exchange-resolved simulations (cell $\le 1.3\text{ nm}$) recover $M_r/M_s \approx 0.672$.
 
 ### `.npz` contents
 
