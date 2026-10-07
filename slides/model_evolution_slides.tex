@@ -1,0 +1,124 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{whale}
+
+% Typography & Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,raster}
+
+% Color Palette
+\definecolor{darkslate}{RGB}{15, 23, 42}
+\definecolor{cardbg}{RGB}{30, 41, 59}
+\definecolor{accentteal}{RGB}{20, 184, 166}
+\definecolor{accentred}{RGB}{239, 68, 68}
+\definecolor{accentblue}{RGB}{59, 130, 246}
+\definecolor{accentorange}{RGB}{249, 115, 22}
+\definecolor{accentgreen}{RGB}{34, 197, 94}
+
+\setbeamercolor{title}{fg=white,bg=darkslate}
+\setbeamercolor{frametitle}{fg=white,bg=darkslate}
+\setbeamercolor{structure}{fg=accentteal}
+
+\title[FePt Janus Micromagnetics]{Evolution of Micromagnetic Modeling in $\text{FePt}$ Janus Caps}
+\subtitle{Diagnostic Progression, Physical Rationale, and Resolution of Brown's Paradox}
+\author{FunMaP Group Presentation}
+\date{\today}
+
+\begin{document}
+
+% -------------------------------------------------------------
+% SLIDE 1: Diagnostic Campaign & Brown's Paradox
+% -------------------------------------------------------------
+\begin{frame}{1. Why Legacy Models Failed \& What Diagnostic Controls Proved}
+\framesubtitle{Tracing coarse-grid discretization artifacts to rigorous single-crystal and disorder bounds}
+
+\begin{tcbraster}[raster columns=3, raster equal height, raster column skip=2.5mm]
+  % Column 1: Legacy v1
+  \begin{tcolorbox}[colback=cardbg!5!white, colframe=accentred, title=\textbf{Legacy v1 Breakdown}, fonttitle=\scriptsize\bfseries, fontupper=\tiny]
+    \begin{itemize}\setlength{\itemsep}{1pt}
+      \item \textbf{Discretization Failure:} $\Delta x = 18\text{--}92\text{ nm} \gg \ell_{\mathrm{ex}} \approx 2.1\text{ nm}$. Underestimated exchange led to unphysical decoupling and remanence collapse ($M_r/M_s \to 0.40$).
+      \item \textbf{Geometric Trap:} Uniform $t=60\text{ nm}$ shell with $90^\circ$ blunt rim assigned unphysical volume to equator.
+      \item \textbf{Bisection Error:} Tested negative branch without resaturation $\implies$ spurious plateau at $\mu_0 H_c = 4.71\text{ T}$ and $12.2\text{ T}$ ceiling.
+    \end{itemize}
+    \vspace{2pt}
+    \centering\textbf{\textcolor{accentred}{Numerical Solver Artifact}}
+  \end{tcolorbox}
+
+  % Column 2: R1 Benchmark
+  \begin{tcolorbox}[colback=cardbg!5!white, colframe=accentblue, title=\textbf{Continuum Benchmark (R1)}, fonttitle=\scriptsize\bfseries, fontupper=\tiny]
+    \begin{itemize}\setlength{\itemsep}{1pt}
+      \item \textbf{Physical Geometry:} $\Delta x = 1.0\text{ nm} < \ell_{\mathrm{ex}}$, ballistic taper $t(\theta)=t_0\cos\theta$, radial easy axes, 100\% $L1_0$ phase.
+      \item \textbf{Rigorous Solver:} Monotonic descending sweep eliminating hysteresis trapping.
+      \item \textbf{Brown's Paradox Confirmed:} Converged coercivity $\mu_0 H_c = \mathbf{6.22\text{ T}}$ ($M_r/M_s = 0.71$) via rim nucleation. Curvature lowers $H_c$ from $13.2\text{ T}$, but \textbf{cannot reach 1.13 T}.
+    \end{itemize}
+    \vspace{2pt}
+    \centering\textbf{\textcolor{accentblue}{Curvature Alone $\neq$ 1.13 T}}
+  \end{tcolorbox}
+
+  % Column 3: M1 Uniform Disorder
+  \begin{tcolorbox}[colback=cardbg!5!white, colframe=accentorange, title=\textbf{Uniform Disorder (M1)}, fonttitle=\scriptsize\bfseries, fontupper=\tiny]
+    \begin{itemize}\setlength{\itemsep}{1pt}
+      \item \textbf{Soft Phase Baseline:} Sweep of uniform A1 fraction ($f_{A1}=0\text{--}66\%$) at $\Delta x = 1.3\text{ nm}$. Soft grains lower $H_c$ ($-7.1\text{ T}/f_{A1}$).
+      \item \textbf{The Remanence Dilemma:} Reaching $\mu_0 H_c = 1.13\text{ T}$ requires $f_{A1} > 75\%$, causing unphysical collapse of remanence ($M_r/M_s < 0.30$).
+      \item \textbf{Dilemma Proven:} Homogeneous disorder cannot simultaneously fit $H_c \approx 1.13\text{ T}$ and $M_r/M_s \approx 0.64$.
+    \end{itemize}
+    \vspace{2pt}
+    \centering\textbf{\textcolor{accentorange}{Violates SQUID Remanence}}
+  \end{tcolorbox}
+\end{tcbraster}
+
+\vspace{3mm}
+\begin{tcolorbox}[colback=cardbg!10!white, colframe=accentteal, arc=2mm, fontupper=\scriptsize]
+\textbf{Diagnostic Takeaway:} Geometry alone overestimates coercivity ($6.22\text{ T} \gg 1.13\text{ T}$), while uniform disorder collapses remanence ($M_r/M_s < 0.30$). Brown's paradox requires an \textbf{order-graded architecture} emerging from thin-film deposition kinetics.
+\end{tcolorbox}
+\end{frame}
+
+% -------------------------------------------------------------
+% SLIDE 2: Multiscale Order-Graded Architecture & Resolution
+% -------------------------------------------------------------
+\begin{frame}{2. Multiscale Order-Graded Architecture \& Resolution of Brown's Paradox}
+\framesubtitle{Coupling line-of-sight deposition, thickness-dependent kinetics, and thermal activation}
+
+\begin{columns}[T]
+  \begin{column}{0.54\textwidth}
+    \begin{tcolorbox}[colback=cardbg!5!white, colframe=accentteal, title=\textbf{Four Physical Pillars (Model v2)}, fonttitle=\scriptsize\bfseries, fontupper=\tiny]
+      \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item \textbf{I. Line-of-Sight Flux:} Ballistic cosine taper $t(\theta) = t_0\cos\theta$ ($60\text{ nm} \to 0\text{ nm}$).
+        \item \textbf{II. Ordering Kinetics Gradient:} Thickness-dependent ordering $S(\theta) = 0.90\sqrt{\cos\theta}$. Dewetted rim ($t < 15\text{ nm}$) acts as a soft nucleation pad ($S \to 0$).
+        \item \textbf{III. Sub-Exchange Mesh:} Discretization $\Delta x = 1.3\text{ nm} < \ell_{\mathrm{ex}} \approx 2.1\text{ nm}$ resolves exchange spring and wall widths ($\delta_w \approx 3.5\text{ nm}$).
+        \item \textbf{IV. 300 K Sharrock Scaling:} Thermal fluctuation reduces static barrier by $19.4\%$ over experimental SQUID sweeps ($\tau \approx 10\text{ s}$).
+      \end{itemize}
+      \vspace{2pt}
+      \textbf{Cooperative Mechanism:} Polar crown ($t > 30\text{ nm}$) locks remanence ($M_r/M_s = 0.637$); equatorial pad triggers early reversal at $-0.3\text{ T}$.
+    \end{tcolorbox}
+  \end{column}
+
+  \begin{column}{0.44\textwidth}
+    \begin{tcolorbox}[colback=cardbg!5!white, colframe=accentgreen, title=\textbf{Quantitative Match to Experiment}, fonttitle=\scriptsize\bfseries, fontupper=\tiny]
+      \begin{tabular}{lcc}
+        \toprule
+        \textbf{Metric} & \textbf{Model v2} & \textbf{Exp. SQUID} \\
+        \midrule
+        $\mu_0 H_c$ & \textbf{1.127 T} (300 K) & \textbf{1.13 $\pm$ 0.04 T} \\
+        $M_r / M_s$ & \textbf{0.637} & \textbf{0.58 -- 0.65} \\
+        $D$-scaling & Invariant & Null ($p = 0.119$) \\
+        \bottomrule
+      \end{tabular}
+      \vspace{4pt}
+
+      \textbf{Origin of Diameter Invariance (3--10 $\mu$m):}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item \textbf{Scale Decoupling:} $\ell_{\mathrm{ex}}/R \sim 10^{-3} \ll 1$. Reversal is locally initiated at the rim gradient, independent of sphere radius.
+        \item \textbf{Interparticle Necks:} Contact percolation ($\eta \approx 0.90$) stabilizes cooperative dipolar clusters.
+      \end{itemize}
+    \end{tcolorbox}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\end{document}

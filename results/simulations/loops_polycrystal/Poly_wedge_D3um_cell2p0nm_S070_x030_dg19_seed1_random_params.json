@@ -1,0 +1,24 @@
+{
+  "run_id": "Poly_wedge_D3um_cell2p0nm_S070_x030_dg19_seed1_random",
+  "S": 0.7,
+  "x_intergrain": 0.3,
+  "cell_nm": 2.0,
+  "d_g_nm": 19,
+  "seed": 1,
+  "axes": "random",
+  "A": 1e-11,
+  "Ms": 1000000.0,
+  "B_sat": 12.0,
+  "B_tilt": 0.01,
+  "stopping_mxHxm": 10.0,
+  "Mr_over_Ms": 0.5667641686035281,
+  "switching_interval_T": [
+    1.75,
+    1.8
+  ],
+  "minutes": 323.92163073619207,
+  "n_grain": 2924,
+  "gb_volume_fraction": 0.3039545880358656,
+  "n_magnetic_cells": 448340,
+  "Ku_Jm3": 3229099.9999999995
+}

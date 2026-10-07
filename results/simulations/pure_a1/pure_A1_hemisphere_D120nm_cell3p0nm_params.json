@@ -1,0 +1,16 @@
+{
+  "run_id": "pure_A1_hemisphere_D120nm_cell3p0nm",
+  "phase": "100% disordered A1 FePt (f_A1 = 1.0)",
+  "Ku_Jm3": 1000.0,
+  "Ms_Am": 1000000.0,
+  "A_ex_Jm": 1e-11,
+  "diameter_nm": 120,
+  "cell_nm": 3.0,
+  "Mr_over_Ms": 0.005521630109217169,
+  "switching_interval_T": [
+    0.0,
+    0.005
+  ],
+  "minutes": 3.793444045384725,
+  "n_magnetic_cells": 30916000000
+}

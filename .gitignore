@@ -34,6 +34,10 @@ v1/
 *.odt
 *.ohf
 *.h5
+*.restart
+*.mif
+*.zip
+*.tar.gz
 *.log
 *.tmp
 *.svg.tmp
@@ -60,6 +64,9 @@ R2b_wedge_*/
 M1_wedge_*/
 M4_wedge_*/
 M5_wedge_*/
+Poly_wedge_*/
+pure_A1_*/
+test_drive/
 test_*_cube/
 test_c_*/
 scratch_*/
